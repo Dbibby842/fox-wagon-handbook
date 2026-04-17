@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 40" aria-label="Fox Group">
+  <rect width="140" height="40" fill="#0f1a3d" rx="6"/>
+  <text x="10" y="28" font-family="Helvetica,Arial,sans-serif" font-weight="900" font-size="22" fill="#ffffff" letter-spacing="1">FOX</text>
+  <path d="M62 8 L98 8 L110 20 L98 32 L62 32 L74 20 Z" fill="#f59b1e"/>
+  <text x="72" y="25" font-family="Helvetica,Arial,sans-serif" font-weight="800" font-size="11" fill="#ffffff" letter-spacing="1.5">GROUP</text>
+  <path d="M112 10 L122 20 L112 30 L118 30 L128 20 L118 10 Z" fill="#8cc63f"/>
+</svg>

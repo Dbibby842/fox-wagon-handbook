@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#0f1a3d" />
+<title>Wagon Fitters Handbook · Fox Group</title>
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="assets/icon-192.png" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <button id="menuBtn" class="icon-btn" aria-label="Open contents">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <div class="brand">
+    <img src="assets/fox-logo.jpg" alt="Fox Group" class="brand-logo" />
+    <div class="brand-text">
+      <div class="brand-title">Wagon Fitters Handbook</div>
+      <div class="brand-sub">FG1.0 · January 2025</div>
+    </div>
+  </div>
+  <a id="downloadBtn" class="icon-btn" href="assets/handbook.pdf" download aria-label="Download PDF">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14"/></svg>
+  </a>
+</header>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+  <input id="searchInput" type="search" placeholder="Search 42 sections…" autocomplete="off" />
+  <button id="clearSearch" class="clear-btn" aria-label="Clear search" hidden>&times;</button>
+</div>
+
+<!-- MAIN CONTENT -->
+<main id="main">
+
+  <!-- HOME VIEW -->
+  <section id="home" class="view active">
+    <div class="hero">
+      <div class="hero-badge">Group Handbook 1.0</div>
+      <h1>Wagon Fitters<br/>Handbook</h1>
+      <p>Workshop safety guidance and risk assessments for fitters maintaining and operating vehicles across Fox Group sites.</p>
+      <div class="hero-actions">
+        <button class="btn primary" data-open-toc>Browse 42 sections</button>
+        <a class="btn ghost" href="assets/handbook.pdf" download>Download full PDF</a>
+      </div>
+    </div>
+
+    <h2 class="section-title">Quick jump</h2>
+    <div class="quick-grid">
+      <a class="quick-card" data-page="113" data-ra="WF039">
+        <div class="quick-icon emergency">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l10 18H2z"/><path d="M12 9v5"/><circle cx="12" cy="17" r="1" fill="currentColor"/></svg>
+        </div>
+        <div><div class="quick-title">Emergency Response</div><div class="quick-sub">WF039 · p.113</div></div>
+      </a>
+      <a class="quick-card" data-page="118" data-ra="WF041">
+        <div class="quick-icon first-aid">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 6v12M6 12h12"/></svg>
+        </div>
+        <div><div class="quick-title">First Aid</div><div class="quick-sub">WF041 · p.118</div></div>
+      </a>
+      <a class="quick-card" data-page="115" data-ra="WF040">
+        <div class="quick-icon spill">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c4 5 6 8 6 11a6 6 0 11-12 0c0-3 2-6 6-11z"/></svg>
+        </div>
+        <div><div class="quick-title">Spill Response</div><div class="quick-sub">WF040 · p.115</div></div>
+      </a>
+      <a class="quick-card" data-page="45" data-ra="WF016">
+        <div class="quick-icon ppe">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l8-4 8 4v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9z"/></svg>
+        </div>
+        <div><div class="quick-title">PPE</div><div class="quick-sub">WF016 · p.45</div></div>
+      </a>
+    </div>
+
+    <h2 class="section-title">All sections</h2>
+    <ul id="sectionList" class="section-list"></ul>
+
+    <div id="searchResults" class="section-list" hidden></div>
+    <div id="noResults" class="empty" hidden>No sections match that search.</div>
+  </section>
+
+  <!-- READER VIEW -->
+  <section id="reader" class="view">
+    <div class="reader-header">
+      <button id="backBtn" class="icon-btn" aria-label="Back">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <div class="reader-title" id="readerTitle">—</div>
+      <div class="reader-page" id="readerPage">—</div>
+    </div>
+    <div class="reader-nav">
+      <button id="prevPage" class="btn ghost small">‹ Prev</button>
+      <div id="pageIndicator" class="page-indicator">Page — of —</div>
+      <button id="nextPage" class="btn ghost small">Next ›</button>
+    </div>
+    <div id="pdfViewer" class="pdf-viewer"></div>
+    <div class="reader-foot">
+      <a class="btn ghost small" href="assets/handbook.pdf" download>Download PDF</a>
+      <button id="openNative" class="btn ghost small">Open in new tab</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- TOC DRAWER -->
+<aside id="drawer" class="drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <div>Contents</div>
+    <button id="closeDrawer" class="icon-btn" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6l-12 12"/></svg>
+    </button>
+  </div>
+  <ul id="drawerList" class="drawer-list"></ul>
+</aside>
+<div id="scrim" class="scrim" hidden></div>
+
+<footer class="footer">
+  <div>Fox Group · FoxSafe Health &amp; Safety Team</div>
+  <div class="muted">Prepared by Derick Bibby · Reviewed by Lee Hardy · January 2025</div>
+</footer>
+
+<script src="sections.js"></script>
+<script src="app.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
+  }
+</script>
+</body>
+</html>
