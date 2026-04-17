@@ -89,6 +89,9 @@ h1,h2,h3{margin:0;line-height:1.15;letter-spacing:-.01em}
 .btn.primary:hover{background:var(--orange-2)}
 .btn.ghost{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.2)}
 .btn.ghost:hover{background:rgba(255,255,255,.14)}
+.btn.accent{background:#8cc63f;color:#0f1a3d;font-weight:700}
+.btn.accent:hover{background:#9cd44d}
+.btn.block{display:flex;width:100%;padding:14px}
 .view#reader .btn.ghost{background:#eef0f8;color:var(--ink);border-color:var(--border)}
 .view#reader .btn.ghost:hover{background:#e3e6f2}
 .btn:active{transform:scale(.98)}
@@ -173,6 +176,40 @@ h1,h2,h3{margin:0;line-height:1.15;letter-spacing:-.01em}
 /* FOOTER */
 .footer{padding:18px 16px calc(18px + var(--safe-bottom));text-align:center;font-size:12px;color:var(--muted)}
 .footer .muted{margin-top:4px;font-size:11px;color:#9098b4}
+
+/* SIGN VIEW */
+#sign, #signDone{padding:0 12px 24px;background:var(--bg)}
+.sign-header{display:flex;align-items:center;gap:10px;padding:14px 4px 10px}
+.sign-header .icon-btn{background:#eef0f8;color:var(--ink)}
+.sign-title{font-weight:700;font-size:18px;color:var(--ink)}
+.sign-intro{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px}
+.sign-intro p{margin:0 0 10px;font-size:14.5px;line-height:1.5}
+.sign-intro p:last-child{margin-bottom:0}
+.sign-intro .muted{color:var(--muted);font-size:13px}
+.sign-form{display:flex;flex-direction:column;gap:12px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field span{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.field .optional{text-transform:none;font-weight:500;font-style:normal;font-size:11px;color:var(--muted);letter-spacing:0}
+.field input{padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:16px;font-family:inherit;color:var(--ink);background:#fff;outline:0;transition:border-color .15s, box-shadow .15s}
+.field input:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(245,155,30,.18)}
+.check{display:flex;align-items:flex-start;gap:12px;padding:12px;border:1px solid var(--border);border-radius:10px;background:#f6f7fb;font-size:14px;line-height:1.45;cursor:pointer}
+.check input[type=checkbox]{margin-top:3px;width:20px;height:20px;flex-shrink:0;accent-color:var(--orange)}
+.live-stamp{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;background:#f0f3fb;padding:6px 10px;border-radius:100px;align-self:flex-start}
+.error-msg{background:#fde8e8;color:#b42020;border:1px solid #f5c2c2;border-radius:8px;padding:10px 12px;font-size:13.5px}
+
+/* CONFIRMATION */
+.done-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px 20px;box-shadow:var(--shadow);text-align:center;margin-top:24px}
+.done-tick{width:72px;height:72px;border-radius:50%;background:#2da34a;color:#fff;display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px}
+.done-card h2{font-size:22px;margin:0 0 6px;color:var(--ink)}
+.done-card p{margin:0 0 14px;color:var(--muted);font-size:14px}
+.done-meta{text-align:left;margin:18px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:12px 0;display:flex;flex-direction:column;gap:10px}
+.done-meta div{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.done-meta dt{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin:0;flex-shrink:0}
+.done-meta dd{margin:0;font-size:14px;color:var(--ink);font-weight:600;text-align:right;font-variant-numeric:tabular-nums;word-break:break-word}
+.done-actions{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.done-card .btn.primary{background:var(--orange);color:#fff}
+.done-card .btn.ghost{background:#eef0f8;color:var(--ink);border-color:var(--border)}
+.small{font-size:12px !important}
 
 /* HIGHLIGHT */
 mark{background:#fff2b8;color:inherit;padding:0 1px;border-radius:2px}
