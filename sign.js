@@ -222,7 +222,7 @@
     doc.setTextColor(20, 25, 48);
     doc.setFont('helvetica', 'normal'); doc.setFontSize(12);
     const body = doc.splitTextToSize(
-      'This is to certify that the individual named below has read, understood and agreed to abide by all 42 risk assessments set out in the Fox Group Wagon Fitters Handbook and the 8 Safe Systems of Work issued with it (SSoW-002, 010, 011, 012, 014, 047, 054 and 069). The acknowledgement was submitted electronically to the Fox Group compliance register at the date and time stated.',
+      'This is to certify that the individual named below has read, understood and agreed to abide by all 49 sections of the Fox Group Wagon Fitters Handbook: the 41 risk assessments and the 8 Safe Systems of Work (SSoW-002, 010, 011, 012, 014, 047, 054 and 069). The acknowledgement was submitted electronically to the Fox Group compliance register at the date and time stated.',
       W - 80
     );
     doc.text(body, 40, 210);

@@ -13,10 +13,10 @@ const HANDBOOK_FILE = 'assets/handbook.pdf';
 const SSOW = window.SSOW_SECTIONS || [];
 const ALL_SECTIONS = HANDBOOK_SECTIONS.concat(SSOW);
 
-function fileOf(s)  { return s.file || HANDBOOK_FILE; }
+function fileOf(s)  { return HANDBOOK_FILE; }
 function isSsow(s)  { return s.group === 'ssow'; }
 function metaOf(s) {
-  if (isSsow(s)) return `Safe System of Work · ${s.pages} page${s.pages > 1 ? 's' : ''}`;
+  if (isSsow(s)) return `Section ${s.n} · Page ${s.page} · Safe System of Work`;
   return `Section ${s.n} · Page ${s.page}`;
 }
 function findSection(ref) {
@@ -145,12 +145,12 @@ function openSection(section) {
   $('#reader').classList.add('active');
   $('#readerTitle').textContent = `${section.ra} · ${section.title}`;
   const endPage = sectionEndPage(section);
-  const total = isSsow(section) ? section.pages : HANDBOOK_TOTAL_PAGES;
+  const total = HANDBOOK_TOTAL_PAGES;
   $('#readerPage').textContent = `p.${section.page}${endPage > section.page ? '–' + endPage : ''}`;
   $('#pageIndicator').textContent = `Page ${section.page}${endPage > section.page ? '–' + endPage : ''} of ${total}`;
   renderRelated(section);
   $$('.reader-download').forEach(a => {
-    a.href = fileOf(section);
+    a.href = section.download || HANDBOOK_FILE;
     a.setAttribute('download', isSsow(section) ? `${section.ra}.pdf` : '');
     a.textContent = isSsow(section) ? `Download ${section.ra}` : 'Download PDF';
   });
@@ -180,10 +180,10 @@ function renderRelated(section) {
 }
 
 function sectionEndPage(s) {
-  if (isSsow(s)) return s.pages;
+  if (isSsow(s)) return s.page + s.pages - 1;
   const i = HANDBOOK_SECTIONS.indexOf(s);
   if (i === -1) return s.page;
-  const next = HANDBOOK_SECTIONS[i + 1];
+  const next = HANDBOOK_SECTIONS[i + 1] || SSOW[0];
   if (!next) return HANDBOOK_TOTAL_PAGES;
   return Math.max(s.page, next.page - 1);
 }
