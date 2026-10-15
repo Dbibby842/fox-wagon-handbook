@@ -1,5 +1,5 @@
 // Simple offline cache for the Wagon Fitters Handbook reader.
-const CACHE = 'fox-handbook-v4';
+const CACHE = 'fox-handbook-v5';
 const CORE = [
   './',
   'index.html',
