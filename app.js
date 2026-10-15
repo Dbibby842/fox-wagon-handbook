@@ -5,20 +5,34 @@ const $$ = sel => Array.from(document.querySelectorAll(sel));
 
 const state = {
   current: null,         // current section
-  pdf: null,             // PDF.js document
-  pdfLoading: null,      // promise
+  pdfs: {},              // PDF.js documents keyed by file
   pageRange: [1, 1],     // currently rendered page range
 };
+
+const HANDBOOK_FILE = 'assets/handbook.pdf';
+const SSOW = window.SSOW_SECTIONS || [];
+const ALL_SECTIONS = HANDBOOK_SECTIONS.concat(SSOW);
+
+function fileOf(s)  { return s.file || HANDBOOK_FILE; }
+function isSsow(s)  { return s.group === 'ssow'; }
+function metaOf(s) {
+  if (isSsow(s)) return `Safe System of Work · ${s.pages} page${s.pages > 1 ? 's' : ''}`;
+  return `Section ${s.n} · Page ${s.page}`;
+}
+function findSection(ref) {
+  const r = (ref || '').toUpperCase();
+  return ALL_SECTIONS.find(x => x.ra.toUpperCase() === r);
+}
 
 // ---------- RENDER LISTS ----------
 
 function sectionRow(s, { drawer = false } = {}) {
   const li = document.createElement('li');
   li.innerHTML = `
-    <span class="sec-num">${s.ra}</span>
+    <span class="sec-num${isSsow(s) ? ' ssow' : ''}">${s.ra}</span>
     <span class="sec-text">
       <span class="sec-title">${escapeHtml(s.title)}</span>
-      <span class="sec-meta">Section ${s.n} · Page ${s.page}</span>
+      <span class="sec-meta">${metaOf(s)}</span>
     </span>
     ${drawer ? '' : `<svg class="sec-chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>`}
   `;
@@ -31,15 +45,27 @@ function renderSectionList() {
   list.innerHTML = '';
   HANDBOOK_SECTIONS.forEach(s => list.appendChild(sectionRow(s)));
 
+  const ssowList = $('#ssowList');
+  if (ssowList) {
+    ssowList.innerHTML = '';
+    SSOW.forEach(s => ssowList.appendChild(sectionRow(s)));
+  }
+
   const drawer = $('#drawerList');
   drawer.innerHTML = '';
+  const head = t => { const h = document.createElement('li'); h.className = 'drawer-group'; h.textContent = t; return h; };
+  drawer.appendChild(head('Risk assessments'));
   HANDBOOK_SECTIONS.forEach(s => drawer.appendChild(sectionRow(s, { drawer: true })));
+  if (SSOW.length) {
+    drawer.appendChild(head('Safe Systems of Work'));
+    SSOW.forEach(s => drawer.appendChild(sectionRow(s, { drawer: true })));
+  }
 }
 
 // ---------- SEARCH ----------
 
 function matchScore(s, q) {
-  const hay = (s.title + ' ' + s.ra + ' ' + s.tags.join(' ')).toLowerCase();
+  const hay = (s.title + ' ' + s.ra + ' ' + (isSsow(s) ? 'ssow safe system of work ' + (s.related || []).join(' ') + ' ' : '') + s.tags.join(' ')).toLowerCase();
   const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
   let score = 0;
   for (const t of terms) {
@@ -61,12 +87,15 @@ function runSearch(q) {
   const list = $('#sectionList');
   const results = $('#searchResults');
   const none = $('#noResults');
+  const browse = $$('.browse-only');
   if (!q.trim()) {
     list.hidden = false; results.hidden = true; none.hidden = true;
+    browse.forEach(el => el.hidden = false);
     return;
   }
+  browse.forEach(el => el.hidden = true);
   const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
-  const scored = HANDBOOK_SECTIONS
+  const scored = ALL_SECTIONS
     .map(s => ({ s, score: matchScore(s, q) }))
     .filter(x => x.score > 0)
     .sort((a, b) => b.score - a.score);
@@ -80,10 +109,10 @@ function runSearch(q) {
   scored.forEach(({ s }) => {
     const li = document.createElement('li');
     li.innerHTML = `
-      <span class="sec-num">${s.ra}</span>
+      <span class="sec-num${isSsow(s) ? ' ssow' : ''}">${s.ra}</span>
       <span class="sec-text">
         <span class="sec-title">${highlight(s.title, terms)}</span>
-        <span class="sec-meta">Section ${s.n} · Page ${s.page}</span>
+        <span class="sec-meta">${metaOf(s)}</span>
       </span>
       <svg class="sec-chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     `;
@@ -116,14 +145,42 @@ function openSection(section) {
   $('#reader').classList.add('active');
   $('#readerTitle').textContent = `${section.ra} · ${section.title}`;
   const endPage = sectionEndPage(section);
+  const total = isSsow(section) ? section.pages : HANDBOOK_TOTAL_PAGES;
   $('#readerPage').textContent = `p.${section.page}${endPage > section.page ? '–' + endPage : ''}`;
-  $('#pageIndicator').textContent = `Page ${section.page}${endPage > section.page ? '–' + endPage : ''} of ${HANDBOOK_TOTAL_PAGES}`;
+  $('#pageIndicator').textContent = `Page ${section.page}${endPage > section.page ? '–' + endPage : ''} of ${total}`;
+  renderRelated(section);
+  $$('.reader-download').forEach(a => {
+    a.href = fileOf(section);
+    a.setAttribute('download', isSsow(section) ? `${section.ra}.pdf` : '');
+    a.textContent = isSsow(section) ? `Download ${section.ra}` : 'Download PDF';
+  });
   window.scrollTo(0, 0);
   renderReader(section);
   history.replaceState({ section: section.ra }, '', `#${section.ra}`);
 }
 
+function renderRelated(section) {
+  const box = $('#readerRelated');
+  if (!box) return;
+  const refs = isSsow(section)
+    ? (section.related || [])
+    : SSOW.filter(x => (x.related || []).includes(section.ra)).map(x => x.ra);
+  const items = refs.map(findSection).filter(Boolean);
+  if (!items.length) { box.hidden = true; box.innerHTML = ''; return; }
+  box.hidden = false;
+  box.innerHTML = `<span class="related-label">${isSsow(section) ? 'Related risk assessments' : 'Related safe systems of work'}</span>`;
+  items.forEach(x => {
+    const b = document.createElement('button');
+    b.className = 'related-chip';
+    b.type = 'button';
+    b.textContent = `${x.ra} · ${x.title}`;
+    b.addEventListener('click', () => openSection(x));
+    box.appendChild(b);
+  });
+}
+
 function sectionEndPage(s) {
+  if (isSsow(s)) return s.pages;
   const i = HANDBOOK_SECTIONS.indexOf(s);
   if (i === -1) return s.page;
   const next = HANDBOOK_SECTIONS[i + 1];
@@ -146,7 +203,7 @@ async function renderReader(section) {
   viewer.innerHTML = '<div class="pdf-loading">Loading pages…</div>';
 
   try {
-    const pdf = await loadPdf();
+    const pdf = await loadPdf(fileOf(section));
     viewer.innerHTML = '';
 
     const start = section.page;
@@ -163,7 +220,7 @@ async function renderReader(section) {
     viewer.innerHTML = `
       <div class="pdf-loading">
         Couldn't load the PDF in-app.<br/>
-        <a class="btn primary" style="margin-top:12px;display:inline-flex" href="assets/handbook.pdf#page=${section.page}" target="_blank">Open page ${section.page}</a>
+        <a class="btn primary" style="margin-top:12px;display:inline-flex" href="${fileOf(section)}#page=${section.page}" target="_blank">Open page ${section.page}</a>
       </div>`;
     console.error(err);
   }
@@ -189,16 +246,14 @@ function configurePdfJs() {
   }
 }
 
-async function loadPdf() {
-  if (state.pdf) return state.pdf;
-  if (state.pdfLoading) return state.pdfLoading;
-  state.pdfLoading = (async () => {
-    await ensurePdfJs();
-    const task = window.pdfjsLib.getDocument('assets/handbook.pdf');
-    state.pdf = await task.promise;
-    return state.pdf;
-  })();
-  return state.pdfLoading;
+function loadPdf(file = HANDBOOK_FILE) {
+  if (!state.pdfs[file]) {
+    state.pdfs[file] = (async () => {
+      await ensurePdfJs();
+      return window.pdfjsLib.getDocument(file).promise;
+    })().catch(err => { delete state.pdfs[file]; throw err; });
+  }
+  return state.pdfs[file];
 }
 
 async function renderPage(pdf, pageNum, canvas) {
@@ -222,13 +277,13 @@ async function renderPage(pdf, pageNum, canvas) {
 
 function prevSection() {
   if (!state.current) return;
-  const i = HANDBOOK_SECTIONS.indexOf(state.current);
-  if (i > 0) openSection(HANDBOOK_SECTIONS[i - 1]);
+  const i = ALL_SECTIONS.indexOf(state.current);
+  if (i > 0) openSection(ALL_SECTIONS[i - 1]);
 }
 function nextSection() {
   if (!state.current) return;
-  const i = HANDBOOK_SECTIONS.indexOf(state.current);
-  if (i >= 0 && i < HANDBOOK_SECTIONS.length - 1) openSection(HANDBOOK_SECTIONS[i + 1]);
+  const i = ALL_SECTIONS.indexOf(state.current);
+  if (i >= 0 && i < ALL_SECTIONS.length - 1) openSection(ALL_SECTIONS[i + 1]);
 }
 
 // ---------- UTILS ----------
@@ -249,14 +304,18 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#prevPage').addEventListener('click', prevSection);
   $('#nextPage').addEventListener('click', nextSection);
   $('#openNative').addEventListener('click', () => {
-    if (state.current) window.open(`assets/handbook.pdf#page=${state.current.page}`, '_blank');
+    if (state.current) window.open(`${fileOf(state.current)}#page=${state.current.page}`, '_blank');
   });
 
   // Quick cards
   $$('.quick-card').forEach(el => {
     el.addEventListener('click', () => {
-      const ra = el.dataset.ra;
-      const s = HANDBOOK_SECTIONS.find(x => x.ra === ra);
+      if (el.dataset.scroll) {
+        const t = document.getElementById(el.dataset.scroll);
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+      const s = findSection(el.dataset.ra);
       if (s) openSection(s);
     });
   });
@@ -271,9 +330,9 @@ document.addEventListener('DOMContentLoaded', () => {
   clear.addEventListener('click', () => { input.value=''; clear.hidden=true; runSearch(''); input.focus(); });
 
   // Deep link via hash, e.g. #WF016
-  const hash = (location.hash || '').replace('#', '').toUpperCase();
+  const hash = decodeURIComponent((location.hash || '').replace('#', ''));
   if (hash) {
-    const s = HANDBOOK_SECTIONS.find(x => x.ra === hash);
+    const s = findSection(hash);
     if (s) openSection(s);
   }
 

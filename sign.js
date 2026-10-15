@@ -64,7 +64,7 @@
     err.hidden = true;
 
     if (!name) return showErr('Please enter your full name.');
-    if (!ack) return showErr('Please tick the box to confirm you have read and understood the handbook.');
+    if (!ack) return showErr('Please tick the box to confirm you have read and understood the handbook and Safe Systems of Work.');
 
     const btn = $('#submitSign');
     btn.disabled = true;
@@ -222,7 +222,7 @@
     doc.setTextColor(20, 25, 48);
     doc.setFont('helvetica', 'normal'); doc.setFontSize(12);
     const body = doc.splitTextToSize(
-      'This is to certify that the individual named below has read, understood and agreed to abide by all 42 risk assessments set out in the Fox Group Wagon Fitters Handbook. The acknowledgement was submitted electronically to the Fox Group compliance register at the date and time stated.',
+      'This is to certify that the individual named below has read, understood and agreed to abide by all 42 risk assessments set out in the Fox Group Wagon Fitters Handbook and the 8 Safe Systems of Work issued with it (SSoW-002, 010, 011, 012, 014, 047, 054 and 069). The acknowledgement was submitted electronically to the Fox Group compliance register at the date and time stated.',
       W - 80
     );
     doc.text(body, 40, 210);
@@ -237,7 +237,7 @@
       ['Name',             rec.name],
       ['Employee ID',      rec.employeeId || '—'],
       ['Date and time',    rec.timestampUk],
-      ['Handbook version', rec.handbookVersion || 'FG1.0 (January 2025)'],
+      ['Version', rec.handbookVersion || 'FG1.0 (January 2025)'],
       ['Certificate ID',   rec.certId],
       ['Status',           rec.queued ? 'Saved on device — pending sync' : 'Recorded in Fox Group register'],
     ];

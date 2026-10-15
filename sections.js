@@ -45,3 +45,17 @@ window.HANDBOOK_SECTIONS = [
   {n:42, ra:"SIGN",  title:"Compliance Register – Signature Page",               page:120, tags:["sign","compliance","register","acknowledge"]}
 ];
 window.HANDBOOK_TOTAL_PAGES = 121;
+
+// Safe Systems of Work (SSoW) — each held as its own controlled PDF in assets/ssow/.
+// file = PDF path, pages = page count, related = linked handbook risk assessments.
+window.SSOW_SECTIONS = [
+  {group:"ssow", ra:"SSoW-002", title:"The Use of Stepladders",                       file:"assets/ssow/SSoW-002.pdf", page:1, pages:4,  related:["WF013","WF036"],         tags:["stepladder","ladder","steps","height","fall","three points of contact"]},
+  {group:"ssow", ra:"SSoW-010", title:"Undertaking Vehicle Tyre Repairs",             file:"assets/ssow/SSoW-010.pdf", page:1, pages:3,  related:["WF024","WF019","WF026"], tags:["tyre","repair","puncture","inflation","cage","explosion","split rim"]},
+  {group:"ssow", ra:"SSoW-011", title:"Recovery of Trapped Wagons",                   file:"assets/ssow/SSoW-011.pdf", page:1, pages:3,  related:["WF011","WF006"],         tags:["recovery","stuck","mud","tow","excavator","chain","strap","shackle"]},
+  {group:"ssow", ra:"SSoW-012", title:"Changing HGV and Trailer Wheels and Tyres",    file:"assets/ssow/SSoW-012.pdf", page:1, pages:7,  related:["WF019","WF024","WF026"], tags:["wheel change","tyre","jack","axle stand","roadside","wheel nuts","torque","re-torque"]},
+  {group:"ssow", ra:"SSoW-014", title:"Securing Plant & Attachments to Trailers",     file:"assets/ssow/SSoW-014.pdf", page:1, pages:10, related:["WF011","WF029"],         tags:["load security","lashing","chains","low loader","plant","transport","attachments","trailer"]},
+  {group:"ssow", ra:"SSoW-047", title:"Use of Vehicles on Construction Sites",        file:"assets/ssow/SSoW-047.pdf", page:1, pages:21, related:["WF011","WF030"],         tags:["construction site","traffic management","reversing","banksman","marshal","pedestrian","segregation"]},
+  {group:"ssow", ra:"SSoW-054", title:"Maintenance in Trailer Bodies",                file:"assets/ssow/SSoW-054.pdf", page:1, pages:2,  related:["WF031","WF013"],         tags:["trailer body","skip","tipper","walking floor","cleaning","chock","tascc"]},
+  {group:"ssow", ra:"SSoW-069", title:"Refilling HGV with Diesel and AdBlue",         file:"assets/ssow/SSoW-069.pdf", page:1, pages:3,  related:["WF012","WF040"],         tags:["diesel","adblue","fuel","refuelling","pump","spill","coshh"]}
+];
+
