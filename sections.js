@@ -1,4 +1,5 @@
 // Sections derived from the Wagon Fitters Handbook (FG1.0, Jan 2025).
+// Optional: pages = explicit page count, draft = shows a Draft badge, download = standalone PDF.
 // page = starting page in the source PDF.
 window.HANDBOOK_SECTIONS = [
   {n:1,  ra:"WF001", title:"Abrasive Wheels",                                    page:5,   tags:["grinding","disc","cutting","wheels","noise","dust"]},
@@ -41,9 +42,11 @@ window.HANDBOOK_SECTIONS = [
   {n:38, ra:"WF038", title:"Safe Use of Harnesses",                              page:110, tags:["harness","fall arrest","lanyard","inspection"]},
   {n:39, ra:"WF039", title:"Emergency Response Procedure",                       page:113, tags:["emergency","fire","evacuation","assembly"]},
   {n:40, ra:"WF040", title:"Emergency Spill Response",                           page:115, tags:["spill","oil","fuel","kit","absorbent"]},
-  {n:41, ra:"WF041", title:"First Aid",                                          page:118, tags:["first aid","injury","medical","burn","cut"]}
+  {n:41, ra:"WF041", title:"First Aid",                                          page:118, tags:["first aid","injury","medical","burn","cut"]},
+  // DRAFT (Nov 2026) — pending review; not yet covered by the compliance register.
+  {n:50, ra:"WF042", title:"Welding Fume and Local Exhaust Ventilation", draft:true, download:"assets/ra/WF042.pdf", page:174, pages:4, tags:["welding","fume","lev","extraction","rpe","papr","face fit","mig","tig","plasma","cutting","galvanised","stainless","isocyanate","coshh","cancer"]}
 ];
-window.HANDBOOK_TOTAL_PAGES = 172;
+window.HANDBOOK_TOTAL_PAGES = 186;
 
 // Safe Systems of Work (SSoW) — sections 42–49, bound into handbook.pdf from page 120.
 // page = start page in handbook.pdf, pages = page count, download = standalone SSoW PDF, related = linked risk assessments.
@@ -55,6 +58,9 @@ window.SSOW_SECTIONS = [
   {group:"ssow", n:46, ra:"SSoW-014", title:"Securing Plant & Attachments to Trailers",     download:"assets/ssow/SSoW-014.pdf", page:137, pages:10, related:["WF011","WF029"],         tags:["load security","lashing","chains","low loader","plant","transport","attachments","trailer"]},
   {group:"ssow", n:47, ra:"SSoW-047", title:"Use of Vehicles on Construction Sites",        download:"assets/ssow/SSoW-047.pdf", page:147, pages:21, related:["WF011","WF030"],         tags:["construction site","traffic management","reversing","banksman","marshal","pedestrian","segregation"]},
   {group:"ssow", n:48, ra:"SSoW-054", title:"Maintenance in Trailer Bodies",                download:"assets/ssow/SSoW-054.pdf", page:168, pages:2,  related:["WF031","WF013"],         tags:["trailer body","skip","tipper","walking floor","cleaning","chock","tascc"]},
-  {group:"ssow", n:49, ra:"SSoW-069", title:"Refilling HGV with Diesel and AdBlue",         download:"assets/ssow/SSoW-069.pdf", page:170, pages:3,  related:["WF012","WF040"],         tags:["diesel","adblue","fuel","refuelling","pump","spill","coshh"]}
+  {group:"ssow", n:49, ra:"SSoW-069", title:"Refilling HGV with Diesel and AdBlue",         download:"assets/ssow/SSoW-069.pdf", page:170, pages:3,  related:["WF012","WF040"],         tags:["diesel","adblue","fuel","refuelling","pump","spill","coshh"]},
+  // DRAFT (Nov 2026) — pending review; not yet covered by the compliance register. Page 173 is the contents supplement.
+  {group:"ssow", n:51, ra:"SSoW-070", title:"COSHH – Hazardous Substances in the Workshop", draft:true, download:"assets/ssow/SSoW-070.pdf", page:178, pages:4, related:["WF042","WF007","WF020","WF040"], tags:["coshh","hazardous substances","oil","used engine oil","dermatitis","skin","solvent","brake cleaner","aerosol","coolant","antifreeze","brake fluid","isocyanate","exhaust","asbestos","storage","waste","sds"]},
+  {group:"ssow", n:52, ra:"SSoW-071", title:"Isolation and Stored Energy – Vehicles, Plant and Machinery", draft:true, download:"assets/ssow/SSoW-071.pdf", page:182, pages:5, related:["WF019","WF020","WF026","WF031"], tags:["isolation","lock out","lockout","loto","tag out","stored energy","hydraulic","air","spring brake","battery isolator","keys","tipper body","prop","injection injury","machinery"]}
 ];
 

@@ -16,8 +16,9 @@ const ALL_SECTIONS = HANDBOOK_SECTIONS.concat(SSOW);
 function fileOf(s)  { return HANDBOOK_FILE; }
 function isSsow(s)  { return s.group === 'ssow'; }
 function metaOf(s) {
-  if (isSsow(s)) return `Section ${s.n} · Page ${s.page} · Safe System of Work`;
-  return `Section ${s.n} · Page ${s.page}`;
+  const d = s.draft ? ' · Draft – pending review' : '';
+  if (isSsow(s)) return `Section ${s.n} · Page ${s.page} · Safe System of Work${d}`;
+  return `Section ${s.n} · Page ${s.page}${d}`;
 }
 function findSection(ref) {
   const r = (ref || '').toUpperCase();
@@ -151,8 +152,8 @@ function openSection(section) {
   renderRelated(section);
   $$('.reader-download').forEach(a => {
     a.href = section.download || HANDBOOK_FILE;
-    a.setAttribute('download', isSsow(section) ? `${section.ra}.pdf` : '');
-    a.textContent = isSsow(section) ? `Download ${section.ra}` : 'Download PDF';
+    a.setAttribute('download', section.download ? `${section.ra}.pdf` : '');
+    a.textContent = section.download ? `Download ${section.ra}` : 'Download PDF';
   });
   window.scrollTo(0, 0);
   renderReader(section);
@@ -180,10 +181,9 @@ function renderRelated(section) {
 }
 
 function sectionEndPage(s) {
-  if (isSsow(s)) return s.page + s.pages - 1;
-  const i = HANDBOOK_SECTIONS.indexOf(s);
-  if (i === -1) return s.page;
-  const next = HANDBOOK_SECTIONS[i + 1] || SSOW[0];
+  if (s.pages) return s.page + s.pages - 1;
+  // Next section by page order across risk assessments and SSoWs
+  const next = ALL_SECTIONS.filter(x => x.page > s.page).sort((a, b) => a.page - b.page)[0];
   if (!next) return HANDBOOK_TOTAL_PAGES;
   return Math.max(s.page, next.page - 1);
 }
