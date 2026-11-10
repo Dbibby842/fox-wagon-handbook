@@ -1,6 +1,6 @@
 # Fox Group — Wagon Fitters Handbook (Mobile)
 
-Mobile-friendly web app wrapping the Fox Group Wagon Fitters Handbook (FG1.0, January 2025).
+Mobile-friendly web app wrapping the Fox Group Wagon Fitters Handbook (FG1.0, January 2026).
 
 - 42 risk assessments (WF001–WF041, sections 1–41, pages 5–119; WF042 Welding Fume and LEV, section 50, pages 173–176, also standalone at `assets/ra/WF042.pdf`)
 - 10 Safe Systems of Work (sections 42–49, pages 120–172; SSoW-070 COSHH, section 51, pages 177–180; SSoW-071 Isolation and Stored Energy, section 52, pages 181–185) bound into `assets/handbook.pdf`, also available as standalone PDFs in `assets/ssow/`

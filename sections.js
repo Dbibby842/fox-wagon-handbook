@@ -1,4 +1,4 @@
-// Sections derived from the Wagon Fitters Handbook (FG1.0, Jan 2025).
+// Sections derived from the Wagon Fitters Handbook (FG1.0, January 2026).
 // page = starting page in the source PDF.
 window.HANDBOOK_SECTIONS = [
   {n:1,  ra:"WF001", title:"Abrasive Wheels",                                    page:5,   tags:["grinding","disc","cutting","wheels","noise","dust"]},

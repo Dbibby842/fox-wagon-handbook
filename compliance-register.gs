@@ -21,7 +21,7 @@
 
 const SPREADSHEET_ID = '1ZQY3iTmTgP8v-CuM7XH3AL_aJja5-bw1x2Og1jL1i04';
 const SHEET_NAME     = 'Register';
-const HANDBOOK_VER   = 'FG1.0 (January 2025)';
+const HANDBOOK_VER   = 'FG1.0 (January 2026)';
 
 function doPost(e) {
   try {

@@ -237,7 +237,7 @@
       ['Name',             rec.name],
       ['Employee ID',      rec.employeeId || '—'],
       ['Date and time',    rec.timestampUk],
-      ['Version', rec.handbookVersion || 'FG1.0 (January 2025)'],
+      ['Version', rec.handbookVersion || 'FG1.0 (January 2026)'],
       ['Certificate ID',   rec.certId],
       ['Status',           rec.queued ? 'Saved on device — pending sync' : 'Recorded in Fox Group register'],
     ];
