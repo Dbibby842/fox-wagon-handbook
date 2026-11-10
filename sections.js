@@ -41,11 +41,12 @@ window.HANDBOOK_SECTIONS = [
   {n:38, ra:"WF038", title:"Safe Use of Harnesses",                              page:110, tags:["harness","fall arrest","lanyard","inspection"]},
   {n:39, ra:"WF039", title:"Emergency Response Procedure",                       page:113, tags:["emergency","fire","evacuation","assembly"]},
   {n:40, ra:"WF040", title:"Emergency Spill Response",                           page:115, tags:["spill","oil","fuel","kit","absorbent"]},
-  {n:41, ra:"WF041", title:"First Aid",                                          page:118, tags:["first aid","injury","medical","burn","cut"]}
+  {n:41, ra:"WF041", title:"First Aid",                                          page:118, tags:["first aid","injury","medical","burn","cut"]},
+  {n:50, ra:"WF042", title:"Welding Fume and Local Exhaust Ventilation",         download:"assets/ra/WF042.pdf", page:173, pages:4, tags:["welding","fume","lev","extraction","rpe","papr","mild steel","coshh","face fit","thorough examination"]}
 ];
-window.HANDBOOK_TOTAL_PAGES = 172;
+window.HANDBOOK_TOTAL_PAGES = 185;
 
-// Safe Systems of Work (SSoW) — sections 42–49, bound into handbook.pdf from page 120.
+// Safe Systems of Work (SSoW) — sections 42–49 (p.120) and 51–52 (p.177), bound into handbook.pdf.
 // page = start page in handbook.pdf, pages = page count, download = standalone SSoW PDF, related = linked risk assessments.
 window.SSOW_SECTIONS = [
   {group:"ssow", n:42, ra:"SSoW-002", title:"The Use of Stepladders",                       download:"assets/ssow/SSoW-002.pdf", page:120, pages:4,  related:["WF013","WF036"],         tags:["stepladder","ladder","steps","height","fall","three points of contact"]},
@@ -55,6 +56,8 @@ window.SSOW_SECTIONS = [
   {group:"ssow", n:46, ra:"SSoW-014", title:"Securing Plant & Attachments to Trailers",     download:"assets/ssow/SSoW-014.pdf", page:137, pages:10, related:["WF011","WF029"],         tags:["load security","lashing","chains","low loader","plant","transport","attachments","trailer"]},
   {group:"ssow", n:47, ra:"SSoW-047", title:"Use of Vehicles on Construction Sites",        download:"assets/ssow/SSoW-047.pdf", page:147, pages:21, related:["WF011","WF030"],         tags:["construction site","traffic management","reversing","banksman","marshal","pedestrian","segregation"]},
   {group:"ssow", n:48, ra:"SSoW-054", title:"Maintenance in Trailer Bodies",                download:"assets/ssow/SSoW-054.pdf", page:168, pages:2,  related:["WF031","WF013"],         tags:["trailer body","skip","tipper","walking floor","cleaning","chock","tascc"]},
-  {group:"ssow", n:49, ra:"SSoW-069", title:"Refilling HGV with Diesel and AdBlue",         download:"assets/ssow/SSoW-069.pdf", page:170, pages:3,  related:["WF012","WF040"],         tags:["diesel","adblue","fuel","refuelling","pump","spill","coshh"]}
+  {group:"ssow", n:49, ra:"SSoW-069", title:"Refilling HGV with Diesel and AdBlue",         download:"assets/ssow/SSoW-069.pdf", page:170, pages:3,  related:["WF012","WF040"],         tags:["diesel","adblue","fuel","refuelling","pump","spill","coshh"]},
+  {group:"ssow", n:51, ra:"SSoW-070", title:"COSHH – Hazardous Substances in the Workshop", download:"assets/ssow/SSoW-070.pdf", page:177, pages:4,  related:["WF042","WF007","WF020","WF040"], tags:["coshh","hazardous substances","sds","safety data sheet","oil","solvent","paint","grease","dermatitis","storage","health surveillance"]},
+  {group:"ssow", n:52, ra:"SSoW-071", title:"Isolation and Stored Energy – Vehicles, Plant and Machinery", download:"assets/ssow/SSoW-071.pdf", page:181, pages:5, related:["WF019","WF020","WF026","WF031"], tags:["isolation","lockout","loto","stored energy","hydraulic","air brakes","springs","battery","permit","tagout","prove dead"]}
 ];
 
